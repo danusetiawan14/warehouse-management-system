@@ -75,6 +75,7 @@ The system provides tools for tracking stock levels, monitoring inventory moveme
 ### Dashboard
 
 ![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard2.png)
 
 ### Product Management
 
