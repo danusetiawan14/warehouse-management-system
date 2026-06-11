@@ -1,0 +1,292 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Dashboard Owner
+{% endblock %}
+
+{% block page_title %}
+Dashboard Owner
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+
+<div class="card bg-primary text-white">
+
+<div class="card-body">
+
+<h6>Nilai Persediaan</h6>
+
+<h3>
+Rp {{ "{:,.0f}".format(inventory_value) }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card bg-success text-white">
+
+<div class="card-body">
+
+<h6>Omzet</h6>
+
+<h3>
+Rp {{ "{:,.0f}".format(monthly_revenue) }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card bg-warning">
+
+<div class="card-body">
+
+<h6>Laba Kotor</h6>
+
+<h3>
+Rp {{ "{:,.0f}".format(gross_profit) }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row mt-3">
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-warning">
+
+<div class="card-body text-center">
+
+<h6>PO Menunggu Approval</h6>
+
+<h3>
+{{ pending_po }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-primary">
+
+<div class="card-body text-center">
+
+<h6>DO Menunggu Approval</h6>
+
+<h3>
+{{ pending_do }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-danger">
+
+<div class="card-body text-center">
+
+<h6>Stok Kritis</h6>
+
+<h3>
+{{ critical_stock }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card border-success">
+
+<div class="card-body text-center">
+
+<h6>PO Belum Receive</h6>
+
+<h3>
+{{ approved_po }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card mt-4">
+
+<div class="card-header">
+🏆 Top 5 Produk Terlaris
+</div>
+
+<div class="card-body" style="height:400px;">
+
+<canvas
+id="salesChart"
+height="120">
+</canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="page-card mt-3">
+
+<h4>
+⚠ Produk Stok Kritis
+</h4>
+
+<table class="table table-striped">
+
+<tr>
+
+<th>SKU</th>
+<th>Produk</th>
+<th>Stok</th>
+
+</tr>
+
+{% for p in low_stock %}
+
+<tr>
+
+<td>{{ p.sku }}</td>
+
+<td>{{ p.nama_barang }}</td>
+
+<td>{{ p.stok }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="page-card mt-3">
+
+<h4>
+🏪 Top 5 Agen Berdasarkan Omzet
+</h4>
+
+<table class="table table-striped">
+
+<tr>
+
+<th>Ranking</th>
+<th>Agen</th>
+<th>Omzet</th>
+
+</tr>
+
+{% for a in top_agents %}
+
+<tr>
+
+<td>
+#{{ loop.index }}
+</td>
+
+<td>
+{{ a.nama_agen }}
+</td>
+
+<td>
+
+Rp {{ "{:,.0f}".format(a.omzet) }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+const labels = [
+
+{% for p in top_products %}
+
+"{{ p.nama_barang }}",
+
+{% endfor %}
+
+];
+
+const values = [
+
+{% for p in top_products %}
+
+{{ p.total_jual }},
+
+{% endfor %}
+
+];
+
+</script>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+window.onload = function() {
+
+    const canvas = document.getElementById("salesChart");
+
+    const ctx = canvas.getContext("2d");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+
+            datasets: [{
+                label: "Qty Terjual",
+                data: values
+            }]
+        }
+    });
+
+};
+
+</script>
+
+{% endblock %}

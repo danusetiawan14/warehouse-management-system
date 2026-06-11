@@ -1,0 +1,274 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Detail Purchase Order
+{% endblock %}
+
+{% block page_title %}
+Detail Purchase Order
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+📝 {{ po.nomor_po }}
+</h3>
+
+<small class="text-muted">
+
+Supplier : <b>{{ po.nama_supplier }}</b>
+
+</small>
+
+</div>
+
+<div>
+
+{% if po.status == 'draft' %}
+
+<span class="badge bg-secondary">
+DRAFT
+</span>
+
+{% elif po.status == 'open' %}
+
+<span class="badge bg-warning text-dark">
+OPEN
+</span>
+
+{% elif po.status == 'approved' %}
+
+<span class="badge bg-primary">
+APPROVED
+</span>
+
+{% elif po.status == 'received' %}
+
+<span class="badge bg-success">
+RECEIVED
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="row mb-4">
+
+<div class="col-md-4">
+
+<strong>Tanggal</strong>
+
+<br>
+
+{{ po.tanggal }}
+
+</div>
+
+<div class="col-md-4">
+
+<strong>Supplier</strong>
+
+<br>
+
+{{ po.nama_supplier }}
+
+</div>
+
+<div class="col-md-4">
+
+<strong>Status</strong>
+
+<br>
+
+{{ po.status }}
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<a href="/po"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+{% if po.status == 'draft' %}
+
+<a href="/po/detail/add/{{ po.id }}"
+class="btn btn-success">
+
+* Tambah Barang
+
+</a>
+
+<a href="/po/submit/{{ po.id }}"
+class="btn btn-warning">
+
+Submit PO
+
+</a>
+
+{% endif %}
+
+{% if po.status == 'open' %}
+
+<a href="/po/approve/{{ po.id }}"
+class="btn btn-primary">
+
+Approve PO
+
+</a>
+
+{% endif %}
+
+{% if po.status == 'approved' %}
+
+<a href="/po/receive/{{ po.id }}"
+class="btn btn-success">
+
+Receive PO
+
+</a>
+
+{% endif %}
+
+<a href="/po/unapprove/{{ po.id }}"
+class="btn btn-danger"
+onclick="return confirm('Batalkan approval PO?')">
+
+↩ Batalkan Approval
+
+</a>
+
+<a href="/po/print/{{ po.id }}"
+target="_blank"
+class="btn btn-info">
+
+🖨 Cetak PO
+
+</a>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>No</th>
+<th>Barang</th>
+<th>Qty</th>
+<th>Harga</th>
+<th>Subtotal</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for d in details %}
+
+<tr>
+
+<td>
+{{ loop.index }}
+</td>
+
+<td>
+{{ d.nama_barang }}
+</td>
+
+<td>
+{{ d.qty }}
+</td>
+
+<td>
+Rp {{ "{:,.0f}".format(d.harga) }}
+</td>
+
+<td>
+Rp {{ "{:,.0f}".format(d.subtotal) }}
+</td>
+
+<td>
+
+{% if po.status in ['draft','open'] %}
+
+<a href="/po/detail/edit/{{ d.id }}"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+<a href="/po/detail/delete/{{ d.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Hapus barang ini?')">
+
+Hapus
+
+</a>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<th colspan="4"
+class="text-end">
+
+TOTAL
+
+</th>
+
+<th>
+
+Rp {{ "{:,.0f}".format(total.total or 0) }}
+
+</th>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+<div class="alert alert-info">
+
+📦 Total Barang Keluar :
+<b>{{ total_qty }}</b>
+
+</div>
+
+</div>
+
+{% endblock %}

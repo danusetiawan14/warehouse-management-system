@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Reorder Suggestion
+{% endblock %}
+
+{% block page_title %}
+Reorder Suggestion
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<h4>
+🔔 Rekomendasi Pembelian
+</h4>
+
+<table class="table table-striped">
+
+<tr>
+
+<th>SKU</th>
+<th>Produk</th>
+<th>Stok</th>
+<th>Penjualan 30 Hari</th>
+<th>Lead Time</th>
+<th>Status</th>
+<th>Saran Beli</th>
+<th>Aksi</th>
+
+</tr>
+
+{% for p in suggestions %}
+
+<tr>
+
+<td>{{ p.sku }}</td>
+
+<td>{{ p.nama_barang }}</td>
+
+<td>{{ p.stok }}</td>
+
+<td>{{ p.penjualan_30_hari }}</td>
+
+<td>{{ p.lead_time }} hari</td>
+
+<td>
+
+{% if p.stok <= 0 %}
+
+<span class="badge bg-danger">
+Habis
+</span>
+
+{% elif p.stok <= 5 %}
+
+<span class="badge bg-warning">
+Kritis
+</span>
+
+{% else %}
+
+<span class="badge bg-success">
+Aman
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<span class="badge bg-danger">
+{{ p.saran_beli }}
+</span>
+
+</td>
+
+<td>
+
+<a href="/reorder/create-po/{{ p.id }}"
+class="btn btn-sm btn-success">
+
+Buat PO
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

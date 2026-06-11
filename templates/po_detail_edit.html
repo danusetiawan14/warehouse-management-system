@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Detail PO
+{% endblock %}
+
+{% block page_title %}
+Edit Detail PO
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label class="form-label">
+Qty
+</label>
+
+<input
+type="number"
+name="qty"
+value="{{ detail.qty }}"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Harga
+</label>
+
+<input
+type="number"
+name="harga"
+value="{{ detail.harga }}"
+class="form-control"
+required>
+
+</div>
+
+<button
+type="submit"
+class="btn btn-success">
+
+Simpan
+
+</button>
+
+<a href="/po/detail/{{ detail.purchase_order_id }}"
+class="btn btn-secondary">
+
+Kembali
+
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit Produk
+{% endblock %}
+
+{% block page_title %}
+Edit Produk
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+✏️ Edit Produk
+</h3>
+
+<small class="text-muted">
+Perbarui informasi produk
+</small>
+
+</div>
+
+<a href="/products"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+</div>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Barcode
+
+</label>
+
+<input
+type="text"
+name="barcode"
+class="form-control"
+value="{{ product.barcode or '' }}">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+SKU
+
+</label>
+
+<input
+type="text"
+name="sku"
+class="form-control"
+value="{{ product.sku }}"
+required>
+
+</div>
+
+<div class="col-md-12 mb-3">
+
+<label class="form-label fw-bold">
+
+Nama Barang
+
+</label>
+
+<input
+type="text"
+name="nama_barang"
+class="form-control"
+value="{{ product.nama_barang }}"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Kategori
+
+</label>
+
+<input
+type="text"
+name="kategori"
+class="form-control"
+value="{{ product.kategori }}">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Satuan
+
+</label>
+
+<select
+name="satuan"
+class="form-select">
+
+<option value="Pcs"
+{% if product.satuan=='Pcs' %}selected{% endif %}>
+Pcs
+</option>
+
+<option value="Box"
+{% if product.satuan=='Box' %}selected{% endif %}>
+Box
+</option>
+
+<option value="Dus"
+{% if product.satuan=='Dus' %}selected{% endif %}>
+Dus
+</option>
+
+<option value="Pack"
+{% if product.satuan=='Pack' %}selected{% endif %}>
+Pack
+</option>
+
+<option value="Unit"
+{% if product.satuan=='Unit' %}selected{% endif %}>
+Unit
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Stok
+
+</label>
+
+<input
+type="number"
+name="stok"
+class="form-control"
+value="{{ product.stok }}">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Stok Minimum
+
+</label>
+
+<input
+type="number"
+name="stok_minimum"
+class="form-control"
+value="{{ product.stok_minimum }}">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Lead Time (Hari)
+</label>
+
+<input
+type="number"
+name="lead_time"
+class="form-control"
+value="{{ product.lead_time }}">
+
+</div>
+
+<div class="col-md-12 mb-3">
+
+<label class="form-label fw-bold">
+
+Lokasi Rak
+
+</label>
+
+<input
+type="text"
+name="lokasi_rak"
+class="form-control"
+value="{{ product.lokasi_rak }}">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Harga Beli
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+Rp
+</span>
+
+<input
+type="number"
+name="harga_beli"
+class="form-control"
+step="0.01"
+value="{{ product.harga_beli }}">
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Harga Jual
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+Rp
+</span>
+
+<input
+type="number"
+name="harga_jual"
+class="form-control"
+step="0.01"
+value="{{ product.harga_jual }}">
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="d-flex justify-content-end gap-2">
+
+<a href="/products"
+class="btn btn-secondary">
+
+Batal
+
+</a>
+
+<button
+type="submit"
+class="btn btn-warning">
+
+💾 Update Produk
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

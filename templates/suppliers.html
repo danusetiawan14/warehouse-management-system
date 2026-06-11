@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Supplier
+{% endblock %}
+
+{% block page_title %}
+Master Supplier
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+🏢 Master Supplier
+</h3>
+
+<small class="text-muted">
+Daftar Supplier Terdaftar
+</small>
+
+</div>
+
+<a href="/suppliers/add"
+class="btn btn-primary">
+
++ Tambah Supplier
+
+</a>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th width="70">ID</th>
+<th>Nama Supplier</th>
+<th>Telepon</th>
+<th>Email</th>
+<th>Alamat</th>
+<th width="180">Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for s in suppliers %}
+
+<tr>
+
+<td>
+{{ s.id }}
+</td>
+
+<td>
+<b>{{ s.nama_supplier }}</b>
+</td>
+
+<td>
+{{ s.telepon }}
+</td>
+
+<td>
+{{ s.email }}
+</td>
+
+<td>
+{{ s.alamat }}
+</td>
+
+<td>
+
+<a href="/suppliers/edit/{{ s.id }}"
+class="btn btn-warning btn-sm">
+
+✏ Edit
+
+</a>
+
+<a href="/suppliers/delete/{{ s.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Yakin hapus supplier ini?')">
+
+🗑 Hapus
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

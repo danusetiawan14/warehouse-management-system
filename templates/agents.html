@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Master Agen
+{% endblock %}
+
+{% block page_title %}
+Master Agen
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+🚚 Master Agen
+</h3>
+
+<small class="text-muted">
+Daftar Agen Distribusi
+</small>
+
+</div>
+
+<a href="/agents/add"
+class="btn btn-primary">
+
++ Tambah Agen
+
+</a>
+
+</div>
+
+<table class="table table-hover table-bordered">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+<th>Kode Agen</th>
+<th>Nama Agen</th>
+<th>Telepon</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for a in agents %}
+
+<tr>
+
+<td>{{ a.id }}</td>
+
+<td>{{ a.kode_agen }}</td>
+
+<td>{{ a.nama_agen }}</td>
+
+<td>{{ a.telepon }}</td>
+
+<td>
+
+<a href="/agents/edit/{{ a.id }}"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+<a href="/agents/delete/{{ a.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Yakin hapus agen?')">
+
+Hapus
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

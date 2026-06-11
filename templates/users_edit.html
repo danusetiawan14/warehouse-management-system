@@ -1,0 +1,147 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit User
+{% endblock %}
+
+{% block page_title %}
+Edit User
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+✏️ Edit User
+</h3>
+
+<small class="text-muted">
+Perbarui data pengguna sistem
+</small>
+
+</div>
+
+</div>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Nama Lengkap
+</label>
+
+<input
+type="text"
+name="nama"
+class="form-control"
+value="{{ user.nama }}"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Username
+</label>
+
+<input
+type="text"
+name="username"
+class="form-control"
+value="{{ user.username }}"
+required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Password Baru
+</label>
+
+<input
+type="password"
+name="password"
+class="form-control">
+
+<small class="text-muted">
+Kosongkan jika tidak ingin mengubah password
+</small>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Role
+</label>
+
+<select
+name="role"
+class="form-select">
+
+<option value="admin"
+{% if user.role == 'admin' %}selected{% endif %}>
+Admin
+</option>
+
+<option value="owner"
+{% if user.role == 'owner' %}selected{% endif %}>
+Owner
+</option>
+
+<option value="gudang"
+{% if user.role == 'gudang' %}selected{% endif %}>
+Gudang
+</option>
+
+<option value="kasir"
+{% if user.role == 'kasir' %}selected{% endif %}>
+Kasir
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="d-flex gap-2">
+
+<button
+type="submit"
+class="btn btn-primary">
+
+💾 Update User
+
+</button>
+
+<a href="/users"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

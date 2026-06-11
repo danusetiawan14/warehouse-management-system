@@ -1,0 +1,205 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Manajemen User
+{% endblock %}
+
+{% block page_title %}
+Manajemen User
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+👥 Manajemen User
+</h3>
+
+<small class="text-muted">
+Kelola akun pengguna sistem
+</small>
+
+</div>
+
+<div>
+
+<a href="/users/add"
+class="btn btn-primary">
+
+<i class="fa fa-plus"></i>
+Tambah User
+
+</a>
+
+</div>
+
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }} alert-dismissible fade show">
+
+{{ message }}
+
+<button
+type="button"
+class="btn-close"
+data-bs-dismiss="alert">
+</button>
+
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="table-responsive">
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+<th>Nama</th>
+<th>Username</th>
+<th>Role</th>
+<th>Status</th>
+<th>Dibuat</th>
+<th width="320">Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for u in users %}
+
+<tr>
+
+<td>{{ u.id }}</td>
+
+<td>{{ u.nama }}</td>
+
+<td>{{ u.username }}</td>
+
+<td>
+
+{% if u.role == 'admin' %}
+
+<span class="badge bg-danger">
+Admin
+</span>
+
+{% elif u.role == 'owner' %}
+
+<span class="badge bg-dark">
+Owner
+</span>
+
+{% elif u.role == 'gudang' %}
+
+<span class="badge bg-primary">
+Gudang
+</span>
+
+{% elif u.role == 'kasir' %}
+
+<span class="badge bg-success">
+Kasir
+</span>
+
+{% else %}
+
+<span class="badge bg-secondary">
+{{ u.role }}
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if u.status == 1 %}
+
+<span class="badge bg-success">
+Aktif
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+Nonaktif
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{{ u.created_at }}
+
+</td>
+
+<td>
+
+<a href="/users/edit/{{ u.id }}"
+class="btn btn-warning btn-sm">
+
+✏ Edit
+
+</a>
+
+<a href="/users/reset-password/{{ u.id }}"
+class="btn btn-info btn-sm"
+onclick="return confirm('Reset password user ini?')">
+
+🔑 Reset
+
+</a>
+
+<a href="/users/toggle/{{ u.id }}"
+class="btn btn-secondary btn-sm">
+
+{% if u.status == 1 %}
+🚫 Nonaktifkan
+{% else %}
+✅ Aktifkan
+{% endif %}
+
+</a>
+
+<a href="/users/delete/{{ u.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Hapus user ini?')">
+
+🗑 Hapus
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

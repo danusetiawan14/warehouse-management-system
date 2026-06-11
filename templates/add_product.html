@@ -1,0 +1,262 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tambah Produk
+{% endblock %}
+
+{% block page_title %}
+Tambah Produk
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+📦 Tambah Produk Baru
+</h3>
+
+<small class="text-muted">
+Masukkan data produk yang akan ditambahkan ke gudang
+</small>
+
+</div>
+
+<a href="/products"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+</div>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Barcode
+
+</label>
+
+<input
+type="text"
+name="barcode"
+class="form-control"
+placeholder="Scan atau input barcode">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+SKU
+
+</label>
+
+<input
+type="text"
+name="sku"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-12 mb-3">
+
+<label class="form-label fw-bold">
+
+Nama Barang
+
+</label>
+
+<input
+type="text"
+name="nama_barang"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Kategori
+
+</label>
+
+<input
+type="text"
+name="kategori"
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Satuan
+
+</label>
+
+<select
+name="satuan"
+class="form-select">
+
+<option value="Pcs">Pcs</option>
+<option value="Box">Box</option>
+<option value="Dus">Dus</option>
+<option value="Pack">Pack</option>
+<option value="Unit">Unit</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Stok Awal
+
+</label>
+
+<input
+type="number"
+name="stok"
+class="form-control"
+value="0">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Stok Minimum
+
+</label>
+
+<input
+type="number"
+name="stok_minimum"
+class="form-control"
+value="0">
+
+</div>
+
+<div class="col-md-6 mb-3">
+<label class="form-label">
+Lead Time (Hari)
+</label>
+
+<input
+type="number"
+name="lead_time"
+class="form-control"
+value="7">
+</div>
+
+<div class="col-md-12 mb-3">
+
+<label class="form-label fw-bold">
+
+Lokasi Rak
+
+</label>
+
+<input
+type="text"
+name="lokasi_rak"
+class="form-control"
+placeholder="Contoh: A1-01">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Harga Beli
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+Rp
+</span>
+
+<input
+type="number"
+name="harga_beli"
+class="form-control"
+step="0.01">
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label fw-bold">
+
+Harga Jual
+
+</label>
+
+<div class="input-group">
+
+<span class="input-group-text">
+Rp
+</span>
+
+<input
+type="number"
+name="harga_jual"
+class="form-control"
+step="0.01">
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="d-flex justify-content-end gap-2">
+
+<a href="/products"
+class="btn btn-secondary">
+
+Batal
+
+</a>
+
+<button
+type="submit"
+class="btn btn-primary">
+
+💾 Simpan Produk
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

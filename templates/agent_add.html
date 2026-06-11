@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tambah Agen
+{% endblock %}
+
+{% block page_title %}
+Tambah Agen
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<h3 class="mb-4">
+🚚 Tambah Agen
+</h3>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+
+<label>Kode Agen</label>
+
+<input
+type="text"
+name="kode_agen"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-8 mb-3">
+
+<label>Nama Agen</label>
+
+<input
+type="text"
+name="nama_agen"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Telepon</label>
+
+<input
+type="text"
+name="telepon"
+class="form-control">
+
+</div>
+
+<div class="col-md-12 mb-3">
+
+<label>Alamat</label>
+
+<textarea
+name="alamat"
+class="form-control"
+rows="3"></textarea>
+
+</div>
+
+</div>
+
+<hr>
+
+<a href="/agents"
+class="btn btn-secondary">
+
+Kembali
+
+</a>
+
+<button
+class="btn btn-primary">
+
+💾 Simpan
+
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

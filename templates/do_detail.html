@@ -1,0 +1,343 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Detail Delivery Order
+{% endblock %}
+
+{% block page_title %}
+Detail Delivery Order
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+📦 {{ do.nomor_do }}
+</h3>
+
+<small class="text-muted">
+
+Agen : <b>{{ do.nama_agen }}</b>
+
+</small>
+
+</div>
+
+<div>
+
+{% if do.status == 'draft' %}
+
+<span class="badge bg-secondary">
+DRAFT
+</span>
+
+{% elif do.status == 'approved' %}
+
+<span class="badge bg-primary">
+APPROVED
+</span>
+
+{% elif do.status == 'sent' %}
+
+<span class="badge bg-success">
+SENT
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="row mb-4">
+
+<div class="col-md-4">
+
+<strong>Tanggal</strong>
+
+<br>
+
+{{ do.tanggal }}
+
+</div>
+
+<div class="col-md-4">
+
+<strong>Agen</strong>
+
+<br>
+
+{{ do.nama_agen }}
+
+</div>
+
+<div class="col-md-4">
+
+<strong>Status</strong>
+
+<br>
+
+{{ do.status }}
+
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-3">
+
+<div class="card border-primary">
+
+<div class="card-body text-center">
+
+<h6>Total Item</h6>
+
+<h3>
+{{ total_item }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-success">
+
+<div class="card-body text-center">
+
+<h6>Total Qty</h6>
+
+<h3>
+{{ total_qty }}
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-danger">
+
+<div class="card-body text-center">
+
+<h6>Total Nilai DO</h6>
+
+<h5>
+
+Rp {{ "{:,.0f}".format(total.total or 0) }}
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-warning">
+
+<div class="card-body text-center">
+
+<h6>Profit Kotor</h6>
+
+<h5 class="text-success">
+
+Rp {{ "{:,.0f}".format(profit.profit or 0) }}
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<a href="/do"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+{% if do.status == 'draft' %}
+
+<a href="/do/detail/add/{{ do.id }}"
+class="btn btn-success">
+
+* Tambah Barang
+
+</a>
+
+{% endif %}
+
+{% if do.status == 'draft' %}
+
+<a href="/do/approve/{{ do.id }}"
+class="btn btn-primary">
+
+✓ Approve DO
+
+</a>
+
+{% endif %}
+
+{% if do.status == 'approved' %}
+
+<a href="/do/unapprove/{{ do.id }}"
+class="btn btn-danger"
+onclick="return confirm('Kembalikan DO ke Draft?')">
+
+↩ Batalkan Approval
+
+</a>
+
+{% endif %}
+
+{% if do.status == 'approved' %}
+
+<a href="/do/send/{{ do.id }}"
+class="btn btn-warning">
+
+🚚 Kirim DO
+
+</a>
+
+{% endif %}
+
+<a href="/do/print/{{ do.id }}"
+target="_blank"
+class="btn btn-info">
+
+🖨 Cetak Surat Jalan
+
+</a>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>No</th>
+<th>Barang</th>
+<th>Qty</th>
+<th>Harga Jual</th>
+<th>Subtotal</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% set grand_total = namespace(value=0) %}
+
+{% for d in details %}
+
+{% set grand_total.value = grand_total.value + d.subtotal %}
+
+<tr>
+
+<td>
+{{ loop.index }}
+</td>
+
+<td>
+{{ d.nama_barang }}
+</td>
+
+<td>
+{{ d.qty }}
+</td>
+
+<td>
+Rp {{ "{:,.0f}".format(d.harga_jual) }}
+</td>
+
+<td>
+Rp {{ "{:,.0f}".format(d.subtotal) }}
+</td>
+
+<td>
+
+{% if do.status == 'draft' %}
+
+<a href="/do/detail/edit/{{ d.id }}"
+target="_blank"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+<a href="/do/detail/delete/{{ d.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Hapus barang ini?')">
+
+Hapus
+
+</a>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<th colspan="4"
+class="text-end">
+
+TOTAL
+
+</th>
+
+<th>
+
+Rp {{ "{:,.0f}".format(grand_total.value) }}
+
+</th>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

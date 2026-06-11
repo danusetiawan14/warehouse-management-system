@@ -1,0 +1,497 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block page_title %}
+Dashboard Warehouse
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+<div class="alert alert-info">
+
+User :
+<b>{{ session['nama'] }}</b>
+
+|
+
+Role :
+<b>{{ session.get('role','Belum Ada') }}</b>
+
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }} alert-dismissible fade show">
+
+{{ message }}
+
+<button
+type="button"
+class="btn-close"
+data-bs-dismiss="alert">
+</button>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+<div class="row">
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm border-0">
+<div class="card-body">
+<h6 class="text-muted">Total Produk</h6>
+<h2>{{ total_produk }}</h2>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm border-0">
+<div class="card-body">
+<h6 class="text-muted">Total Supplier</h6>
+<h2>{{ total_supplier }}</h2>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm border-0">
+<div class="card-body">
+<h6 class="text-muted">Total Agen</h6>
+<h2>{{ total_agen }}</h2>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm border-0">
+<div class="card-body">
+<h6 class="text-muted">Total Stok</h6>
+<h2>{{ total_stok }}</h2>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+
+<div class="card bg-primary text-white">
+
+<div class="card-body">
+
+<h6>Nilai Persediaan</h6>
+
+<h4>
+Rp {{ "{:,.0f}".format(inventory_value) }}
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card bg-success text-white">
+
+<div class="card-body">
+
+<h6>Omzet Bulan Ini</h6>
+
+<h4>
+Rp {{ "{:,.0f}".format(monthly_revenue) }}
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card bg-warning text-dark">
+
+<div class="card-body">
+
+<h6>Laba Kotor</h6>
+
+<h4>
+Rp {{ "{:,.0f}".format(gross_profit) }}
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="section-card">
+
+<h4>
+⚠ Stok Menipis
+</h4>
+
+<table class="table table-bordered">
+
+<tr>
+    <th>SKU</th>
+    <th>Nama Barang</th>
+    <th>Stok</th>
+    <th>Minimum</th>
+</tr>
+
+{% for p in low_stock %}
+
+<tr>
+
+<td>{{ p.sku }}</td>
+
+<td>{{ p.nama_barang }}</td>
+
+<td>{{ p.stok }}</td>
+
+<td>{{ p.stok_minimum }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</div>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="section-card">
+
+<h5>📈 Barang Masuk</h5>
+
+<canvas id="inChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="section-card">
+
+<h5>📉 Barang Keluar</h5>
+
+<canvas id="outChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<h3>🏆 Top 10 Produk Terlaris</h3>
+
+<table class="table table-striped">
+
+<tr>
+    <th>No</th>
+    <th>Nama Barang</th>
+    <th>Total Keluar</th>
+</tr>
+
+{% for p in top_products %}
+
+<tr>
+
+<td>{{ loop.index }}</td>
+
+<td>{{ p.nama_barang }}</td>
+
+<td>{{ p.total_keluar }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h3>⚠ Produk Tidak Bergerak > 30 Hari</h3>
+
+<table class="table table-bordered">
+
+<tr>
+    <th>Produk</th>
+    <th>Terakhir Transaksi</th>
+    <th>Hari Tidak Bergerak</th>
+</tr>
+
+{% for p in slow_moving %}
+
+<tr>
+
+<td>{{ p.nama_barang }}</td>
+
+<td>{{ p.last_transaction }}</td>
+
+<td>{{ p.days_idle }} hari</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h3>🏆 Top Agen</h3>
+
+<table class="table table-striped">
+
+<tr>
+    <th>No</th>
+    <th>Agen</th>
+    <th>Total Penjualan</th>
+</tr>
+
+{% for a in top_agents %}
+
+<tr>
+
+<td>{{ loop.index }}</td>
+
+<td>{{ a.nama_agen }}</td>
+
+<td>
+Rp {{ "{:,.0f}".format(a.total_penjualan) }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h3>🏢 Top Supplier</h3>
+
+<table class="table table-striped">
+
+<tr>
+    <th>No</th>
+    <th>Supplier</th>
+    <th>Total Pembelian</th>
+</tr>
+
+{% for s in top_suppliers %}
+
+<tr>
+
+<td>{{ loop.index }}</td>
+
+<td>{{ s.nama_supplier }}</td>
+
+<td>
+Rp {{ "{:,.0f}".format(s.total_pembelian) }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="mt-4">
+
+{% if session['role'] == 'admin' %}
+
+<a href="/products"
+class="btn btn-success">
+Master Produk
+</a>
+
+{% endif %}
+
+{% if session['role'] in ['admin','gudang'] %}
+
+<a href="/goods-receipt/add"
+class="btn btn-primary">
+Barang Masuk
+</a>
+
+{% endif %}
+
+{% if session['role'] in ['admin','gudang','kasir'] %}
+
+<a href="/delivery/add"
+class="btn btn-danger">
+Barang Keluar
+</a>
+
+{% endif %}
+
+{% if session['role'] in ['admin','owner'] %}
+
+<a href="/history"
+class="btn btn-dark">
+Histori Stok
+</a>
+
+<a href="/report/stock"
+class="btn btn-secondary">
+Laporan Stok
+</a>
+
+<a href="/report/in"
+class="btn btn-secondary">
+Laporan Barang Masuk
+</a>
+
+<a href="/report/out"
+class="btn btn-secondary">
+Laporan Barang Keluar
+</a>
+
+{% endif %}
+
+{% if session['role'] == 'admin' %}
+
+<a href="/suppliers"
+class="btn btn-info">
+Master Supplier
+</a>
+
+{% endif %}
+
+{% if session['role'] == 'admin' %}
+
+<a href="/agents"
+class="btn btn-primary">
+Master Agen
+</a>
+
+{% endif %}
+
+{% if session['role'] == 'admin' %}
+
+<a href="/users"
+class="btn btn-dark">
+Manajemen User
+</a>
+
+{% endif %}
+
+<a href="/backup"
+class="btn btn-dark">
+💾 Backup Database
+</a>
+
+<a href="/backup/logs"
+class="btn btn-secondary">
+
+📂 Riwayat Backup
+
+</a>
+
+<a href="/restore"
+class="btn btn-warning">
+♻ Restore Database
+</a>
+
+<a href="/do"
+class="btn btn-secondary">
+Delivery Order
+</a>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const inChart = document.getElementById('inChart');
+
+if(inChart){
+
+new Chart(inChart,{
+    type:'bar',
+    data:{
+        labels:[
+            {% for x in monthly_in %}
+            '{{ x.bulan }}',
+            {% endfor %}
+        ],
+        datasets:[{
+            label:'Barang Masuk',
+            data:[
+                {% for x in monthly_in %}
+                {{ x.total }},
+                {% endfor %}
+            ]
+        }]
+    }
+});
+
+}
+
+const outChart = document.getElementById('outChart');
+
+if(outChart){
+
+new Chart(outChart,{
+    type:'bar',
+    data:{
+        labels:[
+            {% for x in monthly_out %}
+            '{{ x.bulan }}',
+            {% endfor %}
+        ],
+        datasets:[{
+            label:'Barang Keluar',
+            data:[
+                {% for x in monthly_out %}
+                {{ x.total }},
+                {% endfor %}
+            ]
+        }]
+    }
+});
+
+}
+
+</script>
+
+{% endblock %}

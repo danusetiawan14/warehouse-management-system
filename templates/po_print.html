@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>
+Purchase Order
+</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    font-size:14px;
+}
+
+.company-header{
+    text-align:center;
+}
+
+.table th,
+.table td{
+    vertical-align:middle;
+}
+
+.signature{
+    margin-top:80px;
+}
+
+@media print{
+
+    .no-print{
+        display:none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<div class="no-print mb-3">
+
+<button
+onclick="window.print()"
+class="btn btn-primary">
+
+🖨 Cetak
+
+</button>
+
+</div>
+
+<div class="company-header">
+
+<h3>
+PT NAMA PERUSAHAAN
+</h3>
+
+<p>
+Alamat Perusahaan
+<br>
+Telepon Perusahaan
+</p>
+
+<hr>
+
+<h2>
+PURCHASE ORDER
+</h2>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-6">
+
+<b>No PO :</b>
+{{ po.nomor_po }}
+
+<br>
+
+<b>Tanggal :</b>
+{{ po.tanggal }}
+
+</div>
+
+<div class="col-6 text-end">
+
+<b>Supplier :</b>
+
+{{ po.nama_supplier }}
+
+<br>
+
+<b>Status :</b>
+
+{{ po.status }}
+
+</div>
+
+</div>
+
+<br>
+
+<table class="table table-bordered">
+
+<thead class="table-light">
+
+<tr>
+
+<th>No</th>
+<th>Barang</th>
+<th>Qty</th>
+<th>Harga</th>
+<th>Subtotal</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for d in details %}
+
+<tr>
+
+<td>
+{{ loop.index }}
+</td>
+
+<td>
+{{ d.nama_barang }}
+</td>
+
+<td>
+{{ d.qty }}
+</td>
+
+<td>
+Rp {{ "{:,.0f}".format(d.harga) }}
+</td>
+
+<td>
+Rp {{ "{:,.0f}".format(d.subtotal) }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+<tfoot>
+
+<tr>
+
+<th colspan="4"
+class="text-end">
+
+TOTAL
+
+</th>
+
+<th>
+
+Rp {{ "{:,.0f}".format(total.total or 0) }}
+
+</th>
+
+</tr>
+
+</tfoot>
+
+</table>
+
+<div class="row text-center mt-5">
+
+<div class="col-4">
+
+Dibuat Oleh
+
+<br><br><br><br>
+
+---
+
+</div>
+
+<div class="col-4">
+
+Disetujui Oleh
+
+<br><br><br><br>
+
+---
+
+</div>
+
+<div class="col-4">
+
+Supplier
+
+<br><br><br><br>
+
+---
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

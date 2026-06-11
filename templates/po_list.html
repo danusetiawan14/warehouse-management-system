@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Purchase Order
+{% endblock %}
+
+{% block page_title %}
+Purchase Order
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+📝 Purchase Order
+</h3>
+
+<small class="text-muted">
+Daftar Purchase Order Supplier
+</small>
+
+</div>
+
+<a href="/po/add"
+class="btn btn-primary">
+
+* Buat PO
+
+</a>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-hover table-bordered align-middle">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>No</th>
+<th>Nomor PO</th>
+<th>Tanggal</th>
+<th>Supplier</th>
+<th>Status</th>
+<th width="150">Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for p in data %}
+
+<tr>
+
+<td>
+{{ loop.index }}
+</td>
+
+<td>
+{{ p.nomor_po }}
+</td>
+
+<td>
+{{ p.tanggal }}
+</td>
+
+<td>
+{{ p.nama_supplier }}
+</td>
+
+<td>
+
+{% if p.status == 'draft' %}
+
+<span class="badge bg-secondary">
+DRAFT
+</span>
+
+{% elif p.status == 'open' %}
+
+<span class="badge bg-warning text-dark">
+OPEN
+</span>
+
+{% elif p.status == 'approved' %}
+
+<span class="badge bg-primary">
+APPROVED
+</span>
+
+{% elif p.status == 'received' %}
+
+<span class="badge bg-success">
+RECEIVED
+</span>
+
+{% else %}
+
+<span class="badge bg-dark">
+{{ p.status }}
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="/po/detail/{{ p.id }}"
+class="btn btn-info btn-sm">
+
+Detail
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Riwayat Backup
+{% endblock %}
+
+{% block page_title %}
+Riwayat Backup Database
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<h4>
+📂 Riwayat Backup
+</h4>
+
+<table class="table table-bordered">
+
+<tr>
+
+<th>Tanggal</th>
+<th>User</th>
+<th>Nama File</th>
+<th>Aksi</th>
+
+</tr>
+
+{% for d in data %}
+
+<tr>
+
+<td>{{ d.tanggal }}</td>
+
+<td>{{ d.nama }}</td>
+
+<td>{{ d.nama_file }}</td>
+
+<td>
+
+<a href="/backup/log/delete/{{ d.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Hapus log?')">
+
+Hapus
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

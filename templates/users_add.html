@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tambah User
+{% endblock %}
+
+{% block page_title %}
+Tambah User
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h3 class="mb-0">
+👤 Tambah User
+</h3>
+
+<small class="text-muted">
+Buat akun pengguna baru
+</small>
+
+</div>
+
+</div>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Nama Lengkap
+</label>
+
+<input
+type="text"
+name="nama"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Username
+</label>
+
+<input
+type="text"
+name="username"
+class="form-control"
+required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Password
+</label>
+
+<input
+type="password"
+name="password"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Role
+</label>
+
+<select
+name="role"
+class="form-select">
+
+<option value="admin">
+Admin
+</option>
+
+<option value="owner">
+Owner
+</option>
+
+<option value="gudang">
+Gudang
+</option>
+
+<option value="kasir">
+Kasir
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="d-flex gap-2">
+
+<button
+type="submit"
+class="btn btn-success">
+
+💾 Simpan User
+
+</button>
+
+<a href="/users"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

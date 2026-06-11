@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tambah Supplier
+{% endblock %}
+
+{% block page_title %}
+Tambah Supplier
+{% endblock %}
+
+{% block content %}
+
+<div class="page-card">
+
+<h3 class="mb-4">
+➕ Tambah Supplier
+</h3>
+
+<form method="POST">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Nama Supplier
+</label>
+
+<input
+type="text"
+name="nama_supplier"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Telepon
+</label>
+
+<input
+type="text"
+name="telepon"
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Email
+</label>
+
+<input
+type="email"
+name="email"
+class="form-control">
+
+</div>
+
+<div class="col-md-12 mb-3">
+
+<label class="form-label">
+Alamat
+</label>
+
+<textarea
+name="alamat"
+class="form-control"
+rows="3"></textarea>
+
+</div>
+
+</div>
+
+<hr>
+
+<a href="/suppliers"
+class="btn btn-secondary">
+
+← Kembali
+
+</a>
+
+<button
+type="submit"
+class="btn btn-primary">
+
+💾 Simpan
+
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}
