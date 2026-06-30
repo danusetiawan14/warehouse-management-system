@@ -1,1 +1,73 @@
+/* ==========================
+   PAGE HEADER
+========================== */
 
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+
+}
+
+.page-header h2{
+
+    margin:0;
+
+    font-weight:700;
+
+}
+
+.page-header p{
+
+    margin:5px 0 0;
+
+    color:#6b7280;
+
+}
+
+/* ==========================
+   TOOLBAR
+========================== */
+
+.toolbar{
+
+    background:#fff;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+
+}
+
+/* ==========================
+   TABLE CARD
+========================== */
+
+.table-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
